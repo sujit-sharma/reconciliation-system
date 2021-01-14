@@ -1,24 +1,27 @@
 package com.sujit.domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Transaction {
     private String transId;
+    private String description;
     private Double amount;
     private String currencyCode;
     private String purpose;
-    private Date  date;
-    private String transType;
+    private LocalDate  date;
+    private Character transType;
 
     public Transaction(){}
 
-    public Transaction(String transId, Double amount, String currencyCode, String purpose, String transType, Date date){
+    public Transaction(String transId, String description, Double amount, String currencyCode, String purpose, LocalDate date, Character transType){
         this.transId = transId;
+        this.description = description;
         this.amount = amount;
         this.currencyCode = currencyCode;
         this.purpose = purpose;
-        this.transType = transType;
         this.date = date;
+        this.transType = transType;
 
     }
 
@@ -28,6 +31,14 @@ public class Transaction {
 
     public void setTransId(String transId) {
         this.transId = transId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Double getAmount() {
@@ -54,19 +65,32 @@ public class Transaction {
         this.purpose = purpose;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public String getTransType() {
+    public Character getTransType() {
         return transType;
     }
 
-    public void setTransType(String transType) {
+    public void setTransType(Character transType) {
         this.transType = transType;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "transId='" + transId + '\'' +
+                ", description='" + description + '\'' +
+                ", amount=" + amount +
+                ", currencyCode='" + currencyCode + '\'' +
+                ", purpose='" + purpose + '\'' +
+                ", date=" + date +
+                ", transType=" + transType +
+                '}';
     }
 }
