@@ -9,18 +9,22 @@ public class Transaction {
     private Double amount;
     private String currencyCode;
     private String purpose;
-    private LocalDate  date;
+    private String  date;
     private Character transType;
 
     public Transaction(){}
 
-    public Transaction(String transId, String description, Double amount, String currencyCode, String purpose, LocalDate date, Character transType){
+    public Transaction(String transId, Double amount, String currencyCode, String purpose, String date) {
         this.transId = transId;
-        this.description = description;
         this.amount = amount;
         this.currencyCode = currencyCode;
         this.purpose = purpose;
         this.date = date;
+    }
+
+    public Transaction(String transId, String description, Double amount, String currencyCode, String purpose, String date, Character transType){
+        this(transId,amount,currencyCode, purpose, date);
+        this.description = description;
         this.transType = transType;
 
     }
@@ -65,11 +69,11 @@ public class Transaction {
         this.purpose = purpose;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

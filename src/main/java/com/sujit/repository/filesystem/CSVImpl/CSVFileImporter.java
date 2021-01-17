@@ -9,8 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class CSVFileImporter implements FileImporter {
                 transaction.setAmount(Double.parseDouble(attribute.get("amount")));
                 transaction.setCurrencyCode(attribute.get("currency"));
                 transaction.setPurpose(attribute.get("purpose"));
-                transaction.setDate(LocalDate.parse(attribute.get("value date"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                transaction.setDate(attribute.get("value date"));
                 transaction.setTransType((attribute.get("trans type").charAt(0)));
 
                 transactionList.add(transaction);

@@ -26,10 +26,9 @@ class CSVFileExporterTest {
     public void init() throws ParseException {
         csvFileExporter = new CSVFileExporter();
         transactions = new ArrayList<>(5);
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        transactions.add(new Transaction("TR-47884222201", "online transfer",140D,"USD", "donation", LocalDate.parse("2020-01-15", dateFormat) ,'D'));
-        transactions.add(new Transaction("TR-47884222202", "atm withdraw",20.0000,"JOD",null, LocalDate.parse("2020-01-20",dateFormat),'D'));
-        transactions.add(new Transaction("TR-47884222204", "salary",1200.000,"JOD","donation", LocalDate.parse("2020-01-31", dateFormat),'C'));
+        transactions.add(new Transaction("TR-47884222201", "online transfer",140D,"USD", "donation","2020-01-15",'D'));
+        transactions.add(new Transaction("TR-47884222202", "atm withdraw",20.0000,"JOD",null,"2020-01-20",'D'));
+        transactions.add(new Transaction("TR-47884222204", "salary",1200.000,"JOD","donation", "2020-01-31",'C'));
 
         testDirectory = new File("." + File.separator + "src" + File.separator + "test" + File.separator + "testFiles");
         testDirectory.mkdir();

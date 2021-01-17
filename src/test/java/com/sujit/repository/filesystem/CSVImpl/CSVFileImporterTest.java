@@ -12,9 +12,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +28,9 @@ class CSVFileImporterTest {
     public void init() throws IOException, ParseException {
         fileImporter = new CSVFileImporter();
         actualTransactionList = new ArrayList<>(5);
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        actualTransactionList.add(new Transaction("TR-47884222201", "online transfer",140D,"USD", "donation",LocalDate.parse("2020-01-15", dateFormat) ,'D'));
-        actualTransactionList.add(new Transaction("TR-47884222202", "atm withdraw",20.0000,"JOD",null, LocalDate.parse("2020-01-20",dateFormat),'D'));
-        actualTransactionList.add(new Transaction("TR-47884222204", "salary",1200.000,"JOD","donation", LocalDate.parse("2020-01-31", dateFormat),'C'));
+        actualTransactionList.add(new Transaction("TR-47884222201", "online transfer",140D,"USD", "donation","2020-01-15" ,'D'));
+        actualTransactionList.add(new Transaction("TR-47884222202", "atm withdraw",20.0000,"JOD",null,"2020-01-20",'D'));
+        actualTransactionList.add(new Transaction("TR-47884222204", "salary",1200.000,"JOD","donation","2020-01-31",'C'));
 
         actualTransData = new File("." + File.separator + "src" + File.separator + "test" + File.separator + "testFiles" + File.separator + "actualTransData.csv");
 
@@ -50,7 +47,7 @@ class CSVFileImporterTest {
                     printer.print(transaction.getAmount());
                     printer.print(transaction.getCurrencyCode());
                     printer.print(transaction.getPurpose());
-                    printer.print(LocalDate.parse(transaction.getDate().toString(), dateFormat));
+                    printer.print(transaction.getDate());
                     printer.print(transaction.getTransType());
                     printer.println();
                     printer.printRecords();
