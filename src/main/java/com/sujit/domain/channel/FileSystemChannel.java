@@ -17,24 +17,34 @@ public class FileSystemChannel implements Channel {
 
     @Override
     public List<Transaction> read() {
+        List<Transaction> transactions = null;
         try(FileReader reader = new FileReader(fileName)){
-            parser.parse(reader);
+            transactions = parser.parse(reader);
 
         }catch (IOException ioException){
             ioException.printStackTrace();
         }
 
-        return null;
+        return transactions;
     }
 
     @Override
     public void write(List<Transaction> transactions) {
-        try( BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
+        try( BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false))){
 
             parser.transfer(transactions, writer);
         }catch (IOException ioException){
             ioException.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void writeLine(String transaction) {
+        try(FileWriter writer = new FileWriter(fileName,true)) {
+            parser.transfer(transaction, writer);
+        }catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
     }
 }

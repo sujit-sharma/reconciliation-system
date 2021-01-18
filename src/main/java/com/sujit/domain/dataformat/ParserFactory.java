@@ -1,11 +1,11 @@
 package com.sujit.domain.dataformat;
 
 public class ParserFactory {
-    private Parser parser;
 
-    public Parser getParser(String name) {
-        if(name.equalsIgnoreCase("CSV")) parser =  new ApacheCsvParser();
-        else if(name.equalsIgnoreCase("JSON")) parser = new GoogleJsonParser();
+    public static Parser getParserByName(ParserType name) {
+        Parser parser = null;
+        if(name.equals(ParserType.CSV)) parser = new ApacheCsvParser();
+        else if(name.equals(ParserType.JSON)) parser = new GoogleJsonParser();
         return parser;
     }
 

@@ -6,14 +6,14 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ApacheCsvParser implements Parser {
 
     @Override
     public List<Transaction> parse(FileReader reader) throws IOException {
-        List<Transaction> transactionList = new ArrayList<>();
+        List<Transaction> transactionList = new LinkedList<>();
         Iterable<CSVRecord> records = CSVFormat.DEFAULT
                 .withFirstRecordAsHeader()
                 .parse(reader);
@@ -58,5 +58,12 @@ public class ApacheCsvParser implements Parser {
         printer.flush();
         writer.flush();
 
+    }
+
+    @Override
+    public void transfer(String line, FileWriter writer) throws IOException {
+        writer.append(String.join(",", line ));
+        writer.append("\n");
+        writer.flush();
     }
 }

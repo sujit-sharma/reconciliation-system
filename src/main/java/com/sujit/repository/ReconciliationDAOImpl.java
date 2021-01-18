@@ -23,6 +23,12 @@ public class ReconciliationDAOImpl implements ReconciliationDAO {
     }
 
     @Override
+    public void saveRow(String transaction) {
+        channel.writeLine(transaction);
+
+    }
+
+    @Override
     public Transaction find(String transactionId) {
         return null;
     }
