@@ -6,12 +6,16 @@ import com.sujit.domain.JsonTransaction;
 import com.sujit.domain.Transaction;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class GoogleJsonParser implements Parser {
+    private static final DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+
     @Override
     public List<Transaction> parse(FileReader reader ) {
         JsonTransaction[] jsonTransactions = null;
@@ -34,9 +38,14 @@ public class GoogleJsonParser implements Parser {
     private List<Transaction> jsonObjectToTransactionAdapter(List<JsonTransaction> jsonTransactions) {
         List<Transaction> transactions = new LinkedList<>();
         jsonTransactions.forEach(jsonTransaction -> {
-            Transaction transaction = new Transaction(jsonTransaction.getReference(), jsonTransaction.getAmount()
-                    ,jsonTransaction.getCurrencyCode(), jsonTransaction.getPurpose(),jsonTransaction.getDate());
-            transactions.add(transaction);
+            try{
+                Transaction transaction = new Transaction(jsonTransaction.getReference(), jsonTransaction.getAmount()
+                        ,jsonTransaction.getCurrencyCode(), jsonTransaction.getPurpose(),dateFormatter.parse(jsonTransaction.getDate()));
+                transactions.add(transaction);
+            }catch (ParseException parseException){
+                parseException.printStackTrace();
+            }
+
         });
         return transactions;
     }

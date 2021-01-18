@@ -6,14 +6,20 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ApacheCsvParser implements Parser {
 
+    private static final DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+
     @Override
     public List<Transaction> parse(FileReader reader) throws IOException {
         List<Transaction> transactionList = new LinkedList<>();
+
         Iterable<CSVRecord> records = CSVFormat.DEFAULT
                 .withFirstRecordAsHeader()
                 .parse(reader);
@@ -24,9 +30,12 @@ public class ApacheCsvParser implements Parser {
             transaction.setAmount(Double.parseDouble(attribute.get("amount")));
             transaction.setCurrencyCode(attribute.get("currency"));
             transaction.setPurpose(attribute.get("purpose"));
-            transaction.setDate(attribute.get("value date"));
+            try{
+                transaction.setDate(dateFormatter.parse(attribute.get("value date")));
+            }catch (ParseException parseException){
+                parseException.printStackTrace();
+            }
             transaction.setTransType((attribute.get("trans type").charAt(0)));
-
             transactionList.add(transaction);
         }
 
@@ -44,7 +53,7 @@ public class ApacheCsvParser implements Parser {
                 printer.print(transaction.getAmount());
                 printer.print(transaction.getCurrencyCode());
                 printer.print(transaction.getPurpose());
-                printer.print(transaction.getDate());
+                printer.print(dateFormatter.format(transaction.getDate()));
                 printer.print(transaction.getTransType());
                 printer.println();
                 printer.printRecords();

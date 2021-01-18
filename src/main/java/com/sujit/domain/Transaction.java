@@ -1,6 +1,8 @@
 package com.sujit.domain;
 
-import java.time.LocalDate;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Transaction {
@@ -9,12 +11,12 @@ public class Transaction {
     private Double amount;
     private String currencyCode;
     private String purpose;
-    private String  date;
+    private Date date;
     private Character transType;
 
     public Transaction(){}
 
-    public Transaction(String transId, Double amount, String currencyCode, String purpose, String date) {
+    public Transaction(String transId, Double amount, String currencyCode, String purpose, Date date) {
         this.transId = transId;
         this.amount = amount;
         this.currencyCode = currencyCode;
@@ -22,7 +24,7 @@ public class Transaction {
         this.date = date;
     }
 
-    public Transaction(String transId, String description, Double amount, String currencyCode, String purpose, String date, Character transType){
+    public Transaction(String transId, String description, Double amount, String currencyCode, String purpose, Date date, Character transType){
         this(transId,amount,currencyCode, purpose, date);
         this.description = description;
         this.transType = transType;
@@ -69,11 +71,11 @@ public class Transaction {
         this.purpose = purpose;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
