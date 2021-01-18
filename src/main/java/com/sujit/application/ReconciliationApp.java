@@ -16,6 +16,10 @@ public class ReconciliationApp {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please Enter Source file location with its format");
         sourceFile = scanner.nextLine().trim();
+//        if(!sourceFile.matches("^*.[a-zA-Z0-9]+$")){
+//            System.out.println("You haven't entered file format. Please Enter it");
+//            sourceFile += scanner.next();
+//        }
         System.out.println("Enter Target file location with its format");
         targetFile = scanner.nextLine().trim();
 

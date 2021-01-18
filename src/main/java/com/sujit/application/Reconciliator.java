@@ -6,6 +6,8 @@ import com.sujit.domain.channel.FileSystemChannel;
 import com.sujit.domain.dataformat.ApacheCsvParser;
 import com.sujit.domain.dataformat.GoogleJsonParser;
 import com.sujit.domain.dataformat.Parser;
+import com.sujit.domain.dataformat.ParserType;
+import com.sujit.exception.IllegalFileFormatException;
 import com.sujit.repository.ReconciliationDAO;
 import com.sujit.repository.ReconciliationDAOImpl;
 
@@ -14,28 +16,29 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+import java.util.logging.Logger;
 
 public class Reconciliator {
     private static final DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
     public void arrangeDataThenApplyReconciliation(String source, String target) {
-        List<Transaction> sourceList =  accessData(source);
-        //for target file
-        List<Transaction> targetList = accessData(target);
-        //System.out.println(sourceList);
-        //System.out.println(targetList);
+        File destinationDir = new File("/home/sujit/clusus/reconcialited-result");
+        if(destinationDir.exists()){
+            for ( File file: destinationDir.listFiles() ) {
+                if(file != null) file.delete();
+            }
+            destinationDir.delete();
+        }
+        destinationDir.mkdir();
 
-        Reconciliate(sourceList, targetList);
+        List<Transaction> sourceList =  accessData(source);
+        List<Transaction> targetList = accessData(target);
+        Reconciliate(sourceList, targetList,destinationDir);
     }
 
-    private synchronized void Reconciliate(List<Transaction> sourceList, List<Transaction> targetList) {
+    public void Reconciliate(List<Transaction> sourceList, List<Transaction> targetList,File destinationDir) {
         final String COMMA = ",";
-        String destinationDir = "/home/sujit/clusus/reconcialited-result";
-        for ( File file: new File(destinationDir).listFiles() ) {
-            file.delete();
-        }
-       new File(destinationDir).delete();
-        new File(destinationDir).mkdir();
        // arranging system to write in different files
         ReconciliationDAO matchingDao = new ReconciliationDAOImpl(new FileSystemChannel(new ApacheCsvParser(), new File(destinationDir + "/MatchingTransactions.csv")));
         matchingDao.saveRow("transaction id,amount,currency code,value date");
@@ -86,11 +89,15 @@ public class Reconciliator {
                     + transaction.getCurrencyCode() + COMMA + dateFormatter.format(transaction.getDate());
             missingDao.saveRow(row1);
         });
+        Logger.getGlobal().info("Result files are availble in directory " + destinationDir);
 
     }
 
     private List<Transaction> accessData(String filePath) {
         String fileFormat  = filePath.substring(filePath.indexOf('.') + 1 );
+        if(fileFormat.toLowerCase(Locale.ROOT).contains(ParserType.values().toString().toLowerCase(Locale.ROOT))) {
+            throw new IllegalFileFormatException("File format not supported");
+        }
         Parser parser;
         parser  = fileFormat.equalsIgnoreCase("csv") ? new ApacheCsvParser(): new GoogleJsonParser();
         Channel sourceChannel = new FileSystemChannel(parser, new File(filePath));
