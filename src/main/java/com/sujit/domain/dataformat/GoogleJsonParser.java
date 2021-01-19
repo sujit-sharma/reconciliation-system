@@ -2,6 +2,7 @@ package com.sujit.domain.dataformat;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+import com.sujit.application.Utils;
 import com.sujit.domain.JsonTransaction;
 import com.sujit.domain.Transaction;
 
@@ -14,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GoogleJsonParser implements Parser {
-    private static final DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+    private static final DateFormat dateFormatter = Utils.getDateFormatterByParserType(ParserType.JSON);
 
     @Override
     public List<Transaction> parse(FileReader reader ) {

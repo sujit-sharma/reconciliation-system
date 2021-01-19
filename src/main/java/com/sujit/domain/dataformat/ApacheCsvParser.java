@@ -1,5 +1,6 @@
 package com.sujit.domain.dataformat;
 
+import com.sujit.application.Utils;
 import com.sujit.domain.Transaction;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class ApacheCsvParser implements Parser {
 
-    private static final DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+    private static final DateFormat dateFormatter = Utils.getDateFormatterByParserType(ParserType.CSV);
 
     @Override
     public List<Transaction> parse(FileReader reader) throws IOException {
