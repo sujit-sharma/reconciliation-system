@@ -1,4 +1,4 @@
-package com.sujit.domain;
+package com.sujit;
 
 public class JsonTransaction {
 

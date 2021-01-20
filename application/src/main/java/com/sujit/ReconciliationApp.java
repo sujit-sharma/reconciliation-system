@@ -1,4 +1,4 @@
-package com.sujit.application;
+package com.sujit;
 
 
 import java.util.Scanner;
@@ -27,7 +27,7 @@ public class ReconciliationApp {
         //        /home/sujit/clusus/file2.json
         new Reconciliator().arrangeDataThenApplyReconciliation(sourceFile, targetFile);
         Logger.getGlobal().info("Reconciliation Finished");
-        Logger.getGlobal().info("Result files are availble in directory /home/sujit/reconciliation-result");
+        Logger.getGlobal().info("Result files are availble in directory /home/com.sujit/reconciliation-result");
 
 
     }

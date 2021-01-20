@@ -1,6 +1,6 @@
-package com.sujit.application;
+package com.sujit;
 
-import com.sujit.domain.dataformat.ParserType;
+import com.sujit.dataformat.ParserType;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

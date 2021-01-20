@@ -1,4 +1,4 @@
-package com.sujit.domain;
+package com.sujit;
 
 import java.util.Date;
 

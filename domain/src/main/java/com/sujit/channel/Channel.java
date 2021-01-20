@@ -1,8 +1,7 @@
-package com.sujit.domain.channel;
+package com.sujit.channel;
 
-import com.sujit.domain.Transaction;
+import com.sujit.Transaction;
 
-import java.io.File;
 import java.util.List;
 
 public interface Channel {

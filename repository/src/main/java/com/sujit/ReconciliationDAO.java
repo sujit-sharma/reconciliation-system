@@ -1,7 +1,4 @@
-package com.sujit.repository;
-
-import com.sujit.domain.Transaction;
-
+package com.sujit;
 import java.util.List;
 
 public interface ReconciliationDAO {

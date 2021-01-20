@@ -1,15 +1,14 @@
-package com.sujit.domain.dataformat;
+package com.sujit.dataformat;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import com.sujit.application.Utils;
-import com.sujit.domain.JsonTransaction;
-import com.sujit.domain.Transaction;
+import com.sujit.JsonTransaction;
+import com.sujit.Transaction;
+import com.sujit.Utils;
 
 import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;

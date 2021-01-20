@@ -1,7 +1,7 @@
-package com.sujit.domain.dataformat;
+package com.sujit.dataformat;
 
-import com.sujit.application.Utils;
-import com.sujit.domain.Transaction;
+import com.sujit.Transaction;
+import com.sujit.Utils;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
@@ -9,7 +9,6 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 

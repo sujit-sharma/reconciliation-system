@@ -1,15 +1,12 @@
-package com.sujit.application;
+package com.sujit;
 
-import com.sujit.domain.Transaction;
-import com.sujit.domain.channel.Channel;
-import com.sujit.domain.channel.FileSystemChannel;
-import com.sujit.domain.dataformat.ApacheCsvParser;
-import com.sujit.domain.dataformat.GoogleJsonParser;
-import com.sujit.domain.dataformat.Parser;
-import com.sujit.domain.dataformat.ParserType;
+import com.sujit.channel.Channel;
+import com.sujit.channel.FileSystemChannel;
+import com.sujit.dataformat.ApacheCsvParser;
+import com.sujit.dataformat.GoogleJsonParser;
+import com.sujit.dataformat.Parser;
+import com.sujit.dataformat.ParserType;
 import com.sujit.exception.IllegalFileFormatException;
-import com.sujit.repository.ReconciliationDAO;
-import com.sujit.repository.ReconciliationDAOImpl;
 
 import java.io.File;
 import java.text.DateFormat;

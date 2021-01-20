@@ -1,7 +1,8 @@
-package com.sujit.repository;
+package com.sujit;
 
-import com.sujit.domain.Transaction;
-import com.sujit.domain.channel.Channel;
+
+
+import com.sujit.channel.Channel;
 
 import java.util.List;
 

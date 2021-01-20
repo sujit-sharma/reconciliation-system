@@ -1,7 +1,7 @@
-package com.sujit.domain.channel;
+package com.sujit.channel;
 
-import com.sujit.domain.Transaction;
-import com.sujit.domain.dataformat.Parser;
+import com.sujit.Transaction;
+import com.sujit.dataformat.Parser;
 
 import java.io.*;
 import java.util.List;
@@ -36,7 +36,6 @@ public class FileSystemChannel implements Channel {
         }catch (IOException ioException){
             ioException.printStackTrace();
         }
-
     }
 
     @Override
