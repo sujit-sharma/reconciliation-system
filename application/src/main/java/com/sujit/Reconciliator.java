@@ -9,6 +9,8 @@ import com.sujit.dataformat.ParserType;
 import com.sujit.exception.IllegalFileFormatException;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -16,24 +18,22 @@ import java.util.logging.Logger;
 
 public class Reconciliator {
     private final DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+    File destinationDir = new File("/home/sujit/clusus/reconcialited-result");
 
-    public void arrangeDataThenApplyReconciliation(String source, String target) {
-        File destinationDir = new File("/home/sujit/clusus/reconcialited-result");
-        if(destinationDir.exists()){
-            if(destinationDir.length() > 0 ){
+    public void arrangeDataThenApplyReconciliation(String source, String target) throws IOException {
+        if(destinationDir.exists() && destinationDir.length() > 0){
                 for ( File file: Objects.requireNonNull(destinationDir.listFiles())) {
-                    if(destinationDir.length() > 0) file.delete();
+                    if(destinationDir.length() > 0) Files.delete(file.toPath());
                 }
-            }
         }
         destinationDir.mkdir();
 
         List<Transaction> sourceList =  accessData(source);
         List<Transaction> targetList = accessData(target);
-        reconciliate(sourceList, targetList,destinationDir);
+        reconciliate(sourceList, targetList);
     }
 
-    public void reconciliate(List<Transaction> sourceList, List<Transaction> targetList, File destinationDir) {
+    public void reconciliate(List<Transaction> sourceList, List<Transaction> targetList) {
         final String COMMA = ",";
        // arranging system to write in different files
         ReconciliationDAO matchingDao = new ReconciliationDAOImpl(new FileSystemChannel(new ApacheCsvParser(), new File(destinationDir + "/MatchingTransactions.csv")));

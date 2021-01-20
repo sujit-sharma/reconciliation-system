@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.util.Currency;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ApacheCsvParser implements Parser {
 
@@ -35,7 +36,7 @@ public class ApacheCsvParser implements Parser {
             try{
                 transaction.setDate(dateFormatter.parse(attribute.get("value date")));
             }catch (ParseException parseException){
-                parseException.printStackTrace();
+                Logger.getGlobal().severe("An Exception Occurs" + parseException.getMessage());
             }
             transaction.setTransType((attribute.get("trans type").charAt(0)));
             transactionList.add(transaction);
@@ -62,7 +63,7 @@ public class ApacheCsvParser implements Parser {
 
             }
             catch (IOException ioException){
-                ioException.printStackTrace();
+                Logger.getGlobal().severe("An Exception Occurs" + ioException.getMessage());
             }
 
         });

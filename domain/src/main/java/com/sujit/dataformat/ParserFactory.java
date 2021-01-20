@@ -1,6 +1,7 @@
 package com.sujit.dataformat;
 
 public class ParserFactory {
+    private ParserFactory() {}
 
     public static Parser getParserByName(ParserType name) {
         Parser parser = null;

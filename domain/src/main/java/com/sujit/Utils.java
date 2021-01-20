@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 public class Utils {
+    private Utils(){}
+
     public static DateFormat getDateFormatterByParserType(ParserType parserType){
         DateFormat dateFormat = new SimpleDateFormat();
         if(parserType.equals(ParserType.CSV)) dateFormat = new SimpleDateFormat("yyyy-MM-dd");

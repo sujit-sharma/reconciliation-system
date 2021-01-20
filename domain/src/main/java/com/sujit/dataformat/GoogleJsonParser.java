@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class GoogleJsonParser implements Parser {
     private static final DateFormat dateFormatter = Utils.getDateFormatterByParserType(ParserType.JSON);
@@ -27,11 +28,12 @@ public class GoogleJsonParser implements Parser {
 
     @Override
     public void transfer(List<Transaction> transactions, BufferedWriter writer) {
+        throw new UnsupportedOperationException("Method not Implemented Yet");
 
     }
     @Override
     public void transfer(String line, FileWriter writer) {
-
+        throw new UnsupportedOperationException("Method not Implemented Yet");
     }
 
 
@@ -43,7 +45,7 @@ public class GoogleJsonParser implements Parser {
                         ,jsonTransaction.getCurrencyCode(), jsonTransaction.getPurpose(),dateFormatter.parse(jsonTransaction.getDate()));
                 transactions.add(transaction);
             }catch (ParseException parseException){
-                parseException.printStackTrace();
+                Logger.getGlobal().severe("An Exception Occurs" + parseException.getMessage());
             }
 
         });

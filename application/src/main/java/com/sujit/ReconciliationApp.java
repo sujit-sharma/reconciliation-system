@@ -1,12 +1,13 @@
 package com.sujit;
 
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class ReconciliationApp {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //getting filenames as input
         String  sourceFile;
         String targetFile;
