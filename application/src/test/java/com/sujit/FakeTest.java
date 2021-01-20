@@ -1,13 +1,13 @@
 package com.sujit;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 class FakeTest {
 
-    @Test
-    void doestOneEqualsToOne() {
-        assertEquals(1, 1);
-    }
+  @Test
+  void doestOneEqualsToOne() {
+    assertEquals(1, 1);
+  }
 }

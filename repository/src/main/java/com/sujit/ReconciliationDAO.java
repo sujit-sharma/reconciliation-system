@@ -1,8 +1,9 @@
 package com.sujit;
+
 import java.util.List;
 
 public interface ReconciliationDAO {
-    List<Transaction> findAll();
+  List<Transaction> findAll();
 
-    void saveRow(String transactions);
+  void saveRow(String transactions);
 }
