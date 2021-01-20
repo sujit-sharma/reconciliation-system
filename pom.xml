@@ -3,17 +3,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.clusus</groupId>
-    <artifactId>my-project</artifactId>
+    <artifactId>reconciliation-console-app</artifactId>
     <packaging>pom</packaging>
     <version>1.0.1</version>
 
     <properties>
-        <sonar.projectKey>ps.sujit.sharma_reconciliation-console-app</sonar.projectKey>
+        <java.version>15</java.version>
         <sonar.organization>ps-sujit-sharma</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-
-        <java.version>15</java.version>
-
+        <sonar.login>e4f6d1dec7ac53a0227800c88c5b6041237e3bef</sonar.login>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
