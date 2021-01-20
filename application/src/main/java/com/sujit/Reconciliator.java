@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 public class Reconciliator {
     private final DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-    File destinationDir = new File("/home/sujit/clusus/reconcialited-result");
+    final File destinationDir = new File("/home/sujit/clusus/reconcialited-result");
 
     public void arrangeDataThenApplyReconciliation(String source, String target) throws IOException {
         if(destinationDir.exists() && destinationDir.length() > 0){
@@ -26,7 +26,7 @@ public class Reconciliator {
                     if(destinationDir.length() > 0) Files.delete(file.toPath());
                 }
         }
-        destinationDir.mkdir();
+        if(destinationDir.mkdir()) throw new  IllegalArgumentException("Invalid directory");
 
         List<Transaction> sourceList =  accessData(source);
         List<Transaction> targetList = accessData(target);

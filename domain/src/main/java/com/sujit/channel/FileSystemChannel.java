@@ -30,16 +30,6 @@ public class FileSystemChannel implements Channel {
     }
 
     @Override
-    public void write(List<Transaction> transactions) {
-        try( BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false))){
-
-            parser.transfer(transactions, writer);
-        }catch (IOException ioException){
-            Logger.getGlobal().severe("An Exception Occurs" + ioException.getMessage());
-        }
-    }
-
-    @Override
     public void writeLine(String transaction) {
         try(FileWriter writer = new FileWriter(fileName,true)) {
             parser.transfer(transaction, writer);

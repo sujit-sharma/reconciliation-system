@@ -19,11 +19,6 @@ public class ReconciliationDAOImpl implements ReconciliationDAO {
     }
 
     @Override
-    public void saveAll(List<Transaction> transactions) {
-        channel.write(transactions);
-    }
-
-    @Override
     public void saveRow(String transaction) {
         channel.writeLine(transaction);
 
