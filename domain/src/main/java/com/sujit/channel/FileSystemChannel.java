@@ -7,8 +7,8 @@ import java.io.*;
 import java.util.List;
 
 public class FileSystemChannel implements Channel {
-    Parser parser;
-    File fileName;
+    final Parser parser;
+    final File fileName;
 
     public FileSystemChannel(Parser parser, File fileName){
         this.parser = parser;

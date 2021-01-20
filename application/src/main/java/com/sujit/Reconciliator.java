@@ -11,30 +11,29 @@ import com.sujit.exception.IllegalFileFormatException;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class Reconciliator {
-    private static final DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+    private final DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
     public void arrangeDataThenApplyReconciliation(String source, String target) {
         File destinationDir = new File("/home/sujit/clusus/reconcialited-result");
         if(destinationDir.exists()){
-            for ( File file: destinationDir.listFiles() ) {
-                if(file != null) file.delete();
+            if(destinationDir.length() > 0 ){
+                for ( File file: Objects.requireNonNull(destinationDir.listFiles())) {
+                    if(destinationDir.length() > 0) file.delete();
+                }
             }
-            destinationDir.delete();
         }
         destinationDir.mkdir();
 
         List<Transaction> sourceList =  accessData(source);
         List<Transaction> targetList = accessData(target);
-        Reconciliate(sourceList, targetList,destinationDir);
+        reconciliate(sourceList, targetList,destinationDir);
     }
 
-    public void Reconciliate(List<Transaction> sourceList, List<Transaction> targetList,File destinationDir) {
+    public void reconciliate(List<Transaction> sourceList, List<Transaction> targetList, File destinationDir) {
         final String COMMA = ",";
        // arranging system to write in different files
         ReconciliationDAO matchingDao = new ReconciliationDAOImpl(new FileSystemChannel(new ApacheCsvParser(), new File(destinationDir + "/MatchingTransactions.csv")));
@@ -58,7 +57,6 @@ public class Reconciliator {
                                 + sourceTrans.getCurrencyCode() + COMMA + dateFormatter.format(sourceTrans.getDate());
                         matchingDao.saveRow(row);
                         sourceItr.remove();
-                        targetItr.remove();
                     }
                     else {
                         String row1 = "SOURCE" + COMMA + sourceTrans.getTransId() + COMMA + sourceTrans.getAmount() + COMMA
@@ -68,8 +66,8 @@ public class Reconciliator {
                         String row2 = "TARGET" + COMMA + targetTrans.getTransId() + COMMA + targetTrans.getAmount() + COMMA
                                 + targetTrans.getCurrencyCode() + COMMA + dateFormatter.format(targetTrans.getDate());
                         mismatchingDao.saveRow(row2);
-                        targetItr.remove();
                     }
+                    targetItr.remove();
 
                 }
 
@@ -92,7 +90,7 @@ public class Reconciliator {
 
     private List<Transaction> accessData(String filePath) {
         String fileFormat  = filePath.substring(filePath.indexOf('.') + 1 );
-        if(fileFormat.toLowerCase(Locale.ROOT).contains(ParserType.values().toString().toLowerCase(Locale.ROOT))) {
+        if(fileFormat.toLowerCase(Locale.ROOT).contains(Arrays.toString(ParserType.values()).toLowerCase(Locale.ROOT))) {
             throw new IllegalFileFormatException("File format not supported");
         }
         Parser parser;

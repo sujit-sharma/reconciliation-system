@@ -5,7 +5,7 @@ import com.sujit.Transaction;
 import java.util.List;
 
 public interface Channel {
-    public List<Transaction> read();
-    public void write(List<Transaction> transactions);
-    public void writeLine(String transaction);
+    List<Transaction> read();
+    void write(List<Transaction> transactions);
+    void writeLine(String transaction);
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ReconciliationDAOImpl implements ReconciliationDAO {
 
-    private Channel channel;
+    private final Channel channel;
 
     public ReconciliationDAOImpl(Channel channel){
         this.channel = channel;
@@ -29,19 +29,4 @@ public class ReconciliationDAOImpl implements ReconciliationDAO {
 
     }
 
-    @Override
-    public Transaction find(String transactionId) {
-        return null;
-    }
-
-
-    @Override
-    public boolean save(Transaction transaction) {
-        return false;
-    }
-
-    @Override
-    public boolean update(Transaction transaction) {
-        return false;
-    }
 }

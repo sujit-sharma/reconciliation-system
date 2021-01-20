@@ -12,7 +12,6 @@ import java.text.ParseException;
 import java.util.Currency;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 public class ApacheCsvParser implements Parser {
 

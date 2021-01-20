@@ -18,7 +18,7 @@ public class GoogleJsonParser implements Parser {
 
     @Override
     public List<Transaction> parse(FileReader reader ) {
-        JsonTransaction[] jsonTransactions = null;
+        JsonTransaction[] jsonTransactions;
         Gson gson = new Gson();
         jsonTransactions = gson.fromJson(new JsonReader(reader), JsonTransaction[].class);
 
@@ -30,7 +30,7 @@ public class GoogleJsonParser implements Parser {
 
     }
     @Override
-    public void transfer(String line, FileWriter writer) throws IOException {
+    public void transfer(String line, FileWriter writer) {
 
     }
 
