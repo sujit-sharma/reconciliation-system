@@ -5,28 +5,22 @@
     <parent>
         <artifactId>my-project</artifactId>
         <groupId>com.clusus</groupId>
-        <version>1.0</version>
+        <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>application</artifactId>
 
-    <properties>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <dependency>
             <artifactId>domain</artifactId>
             <groupId>com.clusus</groupId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <artifactId>repository</artifactId>
             <groupId>com.clusus</groupId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>
