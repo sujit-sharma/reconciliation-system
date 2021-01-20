@@ -21,7 +21,7 @@
     <modules>
         <module>domain</module>
         <module>repository</module>
-        <module>app</module>
+        <module>application</module>
 
     </modules>
     <dependencies>

@@ -1,19 +1,20 @@
 package com.sujit;
 
+import java.util.Currency;
 import java.util.Date;
 
 public class Transaction {
     private String transId;
     private String description;
     private Double amount;
-    private String currencyCode;
+    private Currency currencyCode;
     private String purpose;
     private Date date;
     private Character transType;
 
     public Transaction(){}
 
-    public Transaction(String transId, Double amount, String currencyCode, String purpose, Date date) {
+    public Transaction(String transId, Double amount, Currency currencyCode, String purpose, Date date) {
         this.transId = transId;
         this.amount = amount;
         this.currencyCode = currencyCode;
@@ -21,7 +22,7 @@ public class Transaction {
         this.date = date;
     }
 
-    public Transaction(String transId, String description, Double amount, String currencyCode, String purpose, Date date, Character transType){
+    public Transaction(String transId, String description, Double amount, Currency currencyCode, String purpose, Date date, Character transType){
         this(transId,amount,currencyCode, purpose, date);
         this.description = description;
         this.transType = transType;
@@ -52,11 +53,11 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public String getCurrencyCode() {
+    public Currency getCurrencyCode() {
         return currencyCode;
     }
 
-    public void setCurrencyCode(String currencyCode) {
+    public void setCurrencyCode(Currency currencyCode) {
         this.currencyCode = currencyCode;
     }
 

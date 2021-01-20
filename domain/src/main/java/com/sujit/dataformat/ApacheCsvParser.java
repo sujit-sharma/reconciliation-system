@@ -9,8 +9,10 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.Currency;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class ApacheCsvParser implements Parser {
 
@@ -28,7 +30,8 @@ public class ApacheCsvParser implements Parser {
             transaction.setTransId(attribute.get("trans unique id"));
             transaction.setDescription(attribute.get("trans description"));
             transaction.setAmount(Double.parseDouble(attribute.get("amount")));
-            transaction.setCurrencyCode(attribute.get("currency"));
+
+            transaction.setCurrencyCode(Currency.getInstance(attribute.get("currency")));
             transaction.setPurpose(attribute.get("purpose"));
             try{
                 transaction.setDate(dateFormatter.parse(attribute.get("value date")));

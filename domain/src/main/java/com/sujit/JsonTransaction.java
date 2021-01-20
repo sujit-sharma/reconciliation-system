@@ -1,16 +1,18 @@
 package com.sujit;
 
+import java.util.Currency;
+
 public class JsonTransaction {
 
     private String date;
     private String reference;
     private Double amount;
-    private String currencyCode;
+    private Currency currencyCode;
     private String purpose;
 
     public JsonTransaction(){};
 
-    public JsonTransaction(String date, String reference, Double amount, String currencyCode, String purpose) {
+    public JsonTransaction(String date, String reference, Double amount, Currency currencyCode, String purpose) {
         this.date = date;
         this.reference = reference;
         this.amount = amount;
@@ -42,11 +44,11 @@ public class JsonTransaction {
         this.amount = amount;
     }
 
-    public String getCurrencyCode() {
+    public Currency getCurrencyCode() {
         return currencyCode;
     }
 
-    public void setCurrencyCode(String currencyCode) {
+    public void setCurrencyCode(Currency currencyCode) {
         this.currencyCode = currencyCode;
     }
 
