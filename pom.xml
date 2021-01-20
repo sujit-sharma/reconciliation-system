@@ -18,6 +18,11 @@
             </plugin>
         </plugins>
     </build>
+    <properties>
+        <sonar.projectKey>ps.sujit.sharma_reconciliation-console-app</sonar.projectKey>
+        <sonar.organization>ps-sujit-sharma</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    </properties>
     <modules>
         <module>domain</module>
         <module>repository</module>
@@ -31,6 +36,7 @@
                 <artifactId>junit-jupiter-engine</artifactId>
                 <version>5.5.2</version>
         </dependency>
+
 
     </dependencies>
 
