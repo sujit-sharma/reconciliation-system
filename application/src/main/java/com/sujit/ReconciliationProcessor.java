@@ -10,13 +10,10 @@ import com.sujit.exception.IllegalFileFormatException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Logger;
 
 public class ReconciliationProcessor {
-  private final DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
   final File destinationDir = new File("/home/sujit/clusus/reconciled-result");
 
   public void arrangeDataThenApplyReconciliation(String source, String target) throws IOException {
@@ -67,7 +64,7 @@ public class ReconciliationProcessor {
                     + COMMA
                     + sourceTrans.getCurrencyCode()
                     + COMMA
-                    + dateFormatter.format(sourceTrans.getDate());
+                    + sourceTrans.getDate();
             matchingDao.saveRow(row);
             sourceItr.remove();
           } else {
@@ -80,7 +77,7 @@ public class ReconciliationProcessor {
                     + COMMA
                     + sourceTrans.getCurrencyCode()
                     + COMMA
-                    + dateFormatter.format(sourceTrans.getDate());
+                    + sourceTrans.getDate();
             mismatchingDao.saveRow(row1);
             sourceItr.remove();
             String row2 =
@@ -92,7 +89,7 @@ public class ReconciliationProcessor {
                     + COMMA
                     + targetTrans.getCurrencyCode()
                     + COMMA
-                    + dateFormatter.format(targetTrans.getDate());
+                    + targetTrans.getDate();
             mismatchingDao.saveRow(row2);
           }
           targetItr.remove();
@@ -110,7 +107,7 @@ public class ReconciliationProcessor {
                   + COMMA
                   + transaction.getCurrencyCode()
                   + COMMA
-                  + dateFormatter.format(transaction.getDate());
+                  + transaction.getDate();
           missingDao.saveRow(row1);
         });
     targetList.forEach(
@@ -124,7 +121,7 @@ public class ReconciliationProcessor {
                   + COMMA
                   + transaction.getCurrencyCode()
                   + COMMA
-                  + dateFormatter.format(transaction.getDate());
+                  + transaction.getDate();
           missingDao.saveRow(row1);
         });
     Logger.getGlobal().info("Result files are available in directory " + destinationDir);

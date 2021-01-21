@@ -6,6 +6,7 @@ import com.sujit.JsonTransaction;
 import com.sujit.Transaction;
 import java.io.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -41,7 +42,8 @@ public class GoogleJsonParser implements Parser {
                   jsonTransaction.getAmount(),
                   jsonTransaction.getCurrencyCode(),
                   jsonTransaction.getPurpose(),
-                  LocalDate.parse(jsonTransaction.getDate()));
+                  LocalDate.parse(
+                      jsonTransaction.getDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
           transactions.add(transaction);
         });
     return transactions;

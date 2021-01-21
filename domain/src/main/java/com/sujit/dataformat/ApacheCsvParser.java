@@ -23,14 +23,14 @@ public class ApacheCsvParser implements Parser {
     Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
     for (CSVRecord attribute : records) {
       Transaction transaction = new Transaction();
-      transaction.setTransId(attribute.get("ID"));
-      transaction.setDescription(attribute.get("DESC"));
-      transaction.setAmount(Double.parseDouble(attribute.get("AMOUNT")));
+      transaction.setTransId(attribute.get(0));
+      transaction.setDescription(attribute.get(1));
+      transaction.setAmount(Double.parseDouble(attribute.get(2)));
 
-      transaction.setCurrencyCode(Currency.getInstance(attribute.get("CURR")));
-      transaction.setPurpose(attribute.get("PURPOSE"));
-      transaction.setDate(LocalDate.parse(attribute.get("VALUE_DATE")));
-      transaction.setTransType((attribute.get("TXN_TYPE").charAt(0)));
+      transaction.setCurrencyCode(Currency.getInstance(attribute.get(3)));
+      transaction.setPurpose(attribute.get(4));
+      transaction.setDate(LocalDate.parse(attribute.get(5)));
+      transaction.setTransType((attribute.get(6).charAt(0)));
       transactionList.add(transaction);
     }
 
