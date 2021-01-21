@@ -17,11 +17,9 @@ public class ReconciliationApp {
     System.out.println("Enter Target file location with its format");
     targetFile = scanner.nextLine().trim();
 
-    // /home/sujit/clusus/file1.csv
-    // /home/sujit/clusus/file2.json
-    new Reconciliator().arrangeDataThenApplyReconciliation(sourceFile, targetFile);
+    new ReconciliationProcessor().arrangeDataThenApplyReconciliation(sourceFile, targetFile);
     Logger.getGlobal().info("Reconciliation Finished");
     Logger.getGlobal()
-        .info("Result files are availble in directory /home/com.sujit/reconciliation-result");
+        .info("Result files are available in directory /home/com.sujit/reconciliation-result");
   }
 }

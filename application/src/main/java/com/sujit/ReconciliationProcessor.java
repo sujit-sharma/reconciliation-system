@@ -15,9 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.Logger;
 
-public class Reconciliator {
+public class ReconciliationProcessor {
   private final DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
-  final File destinationDir = new File("/home/sujit/clusus/reconcialited-result");
+  final File destinationDir = new File("/home/sujit/clusus/reconciled-result");
 
   public void arrangeDataThenApplyReconciliation(String source, String target) throws IOException {
     if (destinationDir.exists() && destinationDir.length() > 0) {
@@ -29,10 +29,10 @@ public class Reconciliator {
 
     List<Transaction> sourceList = accessData(source);
     List<Transaction> targetList = accessData(target);
-    reconciliate(sourceList, targetList);
+    reconcile(sourceList, targetList);
   }
 
-  public void reconciliate(List<Transaction> sourceList, List<Transaction> targetList) {
+  public void reconcile(List<Transaction> sourceList, List<Transaction> targetList) {
     final String COMMA = ",";
     // arranging system to write in different files
     ReconciliationDAO matchingDao =
@@ -127,7 +127,7 @@ public class Reconciliator {
                   + dateFormatter.format(transaction.getDate());
           missingDao.saveRow(row1);
         });
-    Logger.getGlobal().info("Result files are availble in directory " + destinationDir);
+    Logger.getGlobal().info("Result files are available in directory " + destinationDir);
   }
 
   private List<Transaction> accessData(String filePath) {

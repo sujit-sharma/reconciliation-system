@@ -20,11 +20,11 @@ class ParserFactoryTest {
   }
 
   @Test
-  public void givenNullValueAsInput_WhenCalledGetParser_ThenShouldThrowNoSuchParserExcepotion() {
+  public void givenNullValueAsInput_WhenCalledGetParser_ThenShouldThrowNoSuchParserException() {
     Exception exception =
         assertThrows(
             IllegalArgumentException.class,
-            () -> ParserFactory.getParserByName(ParserType.valueOf("somehting")));
+            () -> ParserFactory.getParserByName(ParserType.valueOf("something")));
     Logger.getGlobal().severe("An Exception Occurs" + exception.getMessage());
   }
 }

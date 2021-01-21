@@ -43,7 +43,7 @@ In this CSV file, the first line is the header names, and the financial transact
 1. **trans unique id**: this field is the transaction *unique identifier*
 1. **trans description**: the transaction description
 1. **amount**
-1. **currecny**: following ISO 4217 alphabetic code
+1. **currency**: following ISO 4217 alphabetic code
 1. **purpose**
 1. **value date**: following the format `yyyy-MM-dd`
 1. **trans type**: whether the transaction is a credit or debit
