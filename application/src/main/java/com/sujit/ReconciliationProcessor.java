@@ -10,6 +10,7 @@ import com.sujit.exception.IllegalFileFormatException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.text.NumberFormat;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -73,7 +74,7 @@ public class ReconciliationProcessor {
                     + COMMA
                     + sourceTrans.getTransId()
                     + COMMA
-                    + sourceTrans.getAmount()
+                    + NumberFormat.getCurrencyInstance().format(sourceTrans.getAmount())
                     + COMMA
                     + sourceTrans.getCurrencyCode()
                     + COMMA
@@ -85,7 +86,7 @@ public class ReconciliationProcessor {
                     + COMMA
                     + targetTrans.getTransId()
                     + COMMA
-                    + targetTrans.getAmount()
+                    + NumberFormat.getCurrencyInstance().format(targetTrans.getAmount())
                     + COMMA
                     + targetTrans.getCurrencyCode()
                     + COMMA

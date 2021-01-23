@@ -1,6 +1,7 @@
 package com.sujit.channel;
 
 import com.sujit.Transaction;
+import com.sujit.dataformat.GoogleJsonParser;
 import com.sujit.dataformat.Parser;
 import java.io.*;
 import java.util.List;
@@ -18,7 +19,7 @@ public class FileSystemChannel implements Channel {
   @Override
   public List<Transaction> read() {
     List<Transaction> transactions = null;
-    try (FileReader reader = new FileReader(fileName)) {
+    try (InputStreamReader reader = new FileReader(fileName)) {
       transactions = parser.parse(reader);
 
     } catch (IOException ioException) {
