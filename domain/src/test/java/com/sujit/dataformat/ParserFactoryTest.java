@@ -2,7 +2,6 @@ package com.sujit.dataformat;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.logging.Logger;
 import org.junit.jupiter.api.Test;
 
 class ParserFactoryTest {

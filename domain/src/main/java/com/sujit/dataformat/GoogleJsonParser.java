@@ -23,11 +23,6 @@ public class GoogleJsonParser implements Parser {
   }
 
   @Override
-  public void transfer(List<Transaction> transactions, BufferedWriter writer) {
-    throw new UnsupportedOperationException("Method not Implemented Yet");
-  }
-
-  @Override
   public void transfer(String line, FileWriter writer) {
     throw new UnsupportedOperationException("Method not Implemented Yet");
   }

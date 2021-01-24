@@ -4,7 +4,6 @@ import com.sujit.Transaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
@@ -50,12 +49,12 @@ private String inputFileName;
         assertEquals(Currency.getInstance("USD"), firstTxn.getCurrencyCode());
         assertEquals("donation", firstTxn.getPurpose());
         assertEquals(LocalDate.parse("2020-01-20"), firstTxn.getDate());
-        assertEquals(null, firstTxn.getDescription());
+        assertNull(firstTxn.getDescription());
 
         Transaction lastTxn = result.get(result.size() - 1);
 
         assertEquals("TR-47884222245", lastTxn.getTransId());
-        assertEquals(null, lastTxn.getDescription());
+        assertNull(lastTxn.getDescription());
         assertEquals(Double.valueOf("420"), lastTxn.getAmount());
         assertEquals(Currency.getInstance("USD"), lastTxn.getCurrencyCode());
         assertEquals("loan", lastTxn.getPurpose());

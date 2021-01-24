@@ -37,7 +37,6 @@ public class ApacheCsvParser implements Parser {
     return transactionList;
   }
 
-  @Override
   public void transfer(List<Transaction> transactions, BufferedWriter writer) throws IOException {
     CSVPrinter printer =
         CSVFormat.DEFAULT

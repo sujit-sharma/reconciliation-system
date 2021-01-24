@@ -24,16 +24,8 @@ class FileSystemChannelTest {
     private File file;
 
     @BeforeEach
-    void init(){
-
-    }
-
-    @BeforeEach
     void destroy(){
         if(file != null) file.delete();
-    }
-    private InputStream readAsStream(String name) {
-        return getClass().getClassLoader().getResourceAsStream(name);
     }
 
     @Test
