@@ -88,8 +88,7 @@ class ApacheCsvParserTest {
   }
 
   @Test
-  void givenMultipleRowsWhenAFileWhenTransferThenShouldWriteAllTxnInFile()
-      throws IOException {
+  void givenMultipleRowsWhenAFileWhenTransferThenShouldWriteAllTxnInFile() throws IOException {
     String fileName = "list_output.csv";
     Path filePath = Paths.get(this.getClass().getResource("/" + fileName).getPath());
     FileWriter writer = new FileWriter(filePath.toFile());

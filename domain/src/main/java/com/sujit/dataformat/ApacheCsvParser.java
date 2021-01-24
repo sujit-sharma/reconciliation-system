@@ -52,16 +52,7 @@ public class ApacheCsvParser implements Parser {
     transactions.forEach(
         transaction -> {
           try {
-            printer.print(transaction.getTransId());
-            printer.print(transaction.getDescription());
-            printer.print(transaction.getAmount());
-            printer.print(transaction.getCurrencyCode());
-            printer.print(transaction.getPurpose());
-            printer.print(dateFormatter.format(transaction.getDate()));
-            printer.print(transaction.getTransType());
-            printer.println();
-            printer.printRecords();
-
+            printTransaction(printer, transaction);
           } catch (IOException ioException) {
             Logger.getGlobal().severe("An Exception Occurs" + ioException.getMessage());
           }
@@ -76,4 +67,17 @@ public class ApacheCsvParser implements Parser {
     writer.append("\n");
     writer.flush();
   }
+
+  public void printTransaction(CSVPrinter printer, Transaction transaction) throws IOException {
+    printer.print(transaction.getTransId());
+    printer.print(transaction.getDescription());
+    printer.print(transaction.getAmount());
+    printer.print(transaction.getCurrencyCode());
+    printer.print(transaction.getPurpose());
+    printer.print(dateFormatter.format(transaction.getDate()));
+    printer.print(transaction.getTransType());
+    printer.println();
+    printer.printRecords();
+  }
+
 }

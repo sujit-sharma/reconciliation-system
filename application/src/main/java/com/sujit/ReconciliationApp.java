@@ -11,10 +11,8 @@ import java.util.logging.Logger;
 public class ReconciliationApp {
 
   public static void main(String[] args) throws IOException {
-    // getting filenames as input
     String sourceFile;
     String targetFile;
-
     Scanner scanner = new Scanner(System.in);
     Logger.getGlobal().info("Please Enter Source file location with its format");
     sourceFile = scanner.nextLine().trim();
