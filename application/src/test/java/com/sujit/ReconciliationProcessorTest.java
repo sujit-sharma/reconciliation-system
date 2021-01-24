@@ -1,6 +1,7 @@
 package com.sujit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -36,13 +37,33 @@ class ReconciliationProcessorTest {
   }
 
   @Test
-  void givenSourceAndTargetFileWhenExecuteThenShouldCallReconciliationProcess() throws IOException {
-    String source =
-        System.getProperty("user.home") + File.separator + "clusus" + File.separator + "file1.csv";
-    String target =
-        System.getProperty("user.home") + File.separator + "clusus" + File.separator + "file2.json";
+  void givenSourceAndTargetFileWhenExecuteThenShouldCallReconciliationProcessWithoutAnyException() {
+    try {
+      String source =
+          "."
+              + File.separator
+              + "src"
+              + File.separator
+              + "test"
+              + File.separator
+              + "resources"
+              + File.separator
+              + "file1.csv";
+      String target =
+          "."
+              + File.separator
+              + "src"
+              + File.separator
+              + "test"
+              + File.separator
+              + "resources"
+              + File.separator
+              + "file2.json";
 
-    reconciliationProcessor.arrangeDataThenApplyReconciliation(source, target);
+      reconciliationProcessor.arrangeDataThenApplyReconciliation(source, target);
+    } catch (Exception e) {
+      fail("Should run without any exception");
+    }
   }
 
   @Test

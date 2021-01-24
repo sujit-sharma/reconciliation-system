@@ -85,7 +85,6 @@
                 <version>0.8.6</version>
                 <configuration>
                     <destFile>${sonar.jacoco.reportPath}</destFile>
-                    <append>true</append>
                 </configuration>
                 <executions>
                     <execution>
@@ -97,7 +96,7 @@
                     <execution>
                         <id>report</id>
                         <goals>
-                            <goal>report-aggregate</goal>
+                            <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>

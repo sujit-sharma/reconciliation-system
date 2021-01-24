@@ -2,10 +2,7 @@ package com.sujit;
 
 import com.sujit.channel.Channel;
 import com.sujit.channel.FileSystemChannel;
-import com.sujit.dataformat.ApacheCsvParser;
-import com.sujit.dataformat.GoogleJsonParser;
-import com.sujit.dataformat.Parser;
-import com.sujit.dataformat.ParserType;
+import com.sujit.dataformat.*;
 import com.sujit.exception.IllegalFileFormatException;
 import java.io.File;
 import java.io.IOException;
@@ -139,14 +136,15 @@ public class ReconciliationProcessor {
   }
 
   private List<Transaction> accessData(String filePath) {
-    String fileFormat = filePath.substring(filePath.indexOf('.') + 1);
-    if (fileFormat
-        .toLowerCase(Locale.ROOT)
-        .contains(Arrays.toString(ParserType.values()).toLowerCase(Locale.ROOT))) {
+    String[] parts = filePath.split("\\.");
+    String fileFormat = parts[parts.length - 1];
+    Optional<ParserType> parserType = ParserType.getByExtension(fileFormat);
+    if (parserType.isEmpty()) {
       throw new IllegalFileFormatException("File format not supported");
     }
-    Parser parser;
-    parser = fileFormat.equalsIgnoreCase("csv") ? new ApacheCsvParser() : new GoogleJsonParser();
+
+    Parser parser = ParserFactory.getParserByName(parserType.get());
+
     Channel sourceChannel = new FileSystemChannel(parser, new File(filePath));
     ReconciliationDAO sourceDao = new ReconciliationDAOImpl(sourceChannel);
     return sourceDao.findAll();
