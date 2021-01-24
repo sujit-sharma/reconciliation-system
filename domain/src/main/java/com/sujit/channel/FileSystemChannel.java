@@ -39,7 +39,7 @@ public class FileSystemChannel implements Channel {
       Logger.getGlobal()
           .log(
               Level.SEVERE,
-              "An Exception Occurs on writing" + ioException.getMessage(),
+              "An Exception Occurs on writing %s" + ioException.getMessage(),
               ioException);
     }
   }

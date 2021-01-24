@@ -57,7 +57,7 @@ class ApacheCsvParserTest {
   }
 
   @Test
-  public void givenARowAndFileWhenTransferThenShouldWriteTxnInFile() throws IOException {
+  void givenARowAndFileWhenTransferThenShouldWriteTxnInFile() throws IOException {
     String fileName = "line_output.csv";
     Path filePath = Paths.get(this.getClass().getResource("/" + fileName).getPath());
     FileWriter writer = new FileWriter(filePath.toFile());
@@ -88,7 +88,7 @@ class ApacheCsvParserTest {
   }
 
   @Test
-  public void givenMultipleRowsWhenAFileWhenTransferThenShouldWriteAllTxnInFile()
+  void givenMultipleRowsWhenAFileWhenTransferThenShouldWriteAllTxnInFile()
       throws IOException {
     String fileName = "list_output.csv";
     Path filePath = Paths.get(this.getClass().getResource("/" + fileName).getPath());
@@ -158,7 +158,7 @@ class ApacheCsvParserTest {
   }
 
   @Test
-  public void givenTxnListAndFileWhenTransferShouldWriteAllGivenTxnInFile() throws IOException {
+  void givenTxnListAndFileWhenTransferShouldWriteAllGivenTxnInFile() throws IOException {
     String fileName = "list_output.csv";
     Path filePath = Paths.get(this.getClass().getResource(File.separator + fileName).getPath());
     BufferedWriter writer = new BufferedWriter(new FileWriter(filePath.toFile()));
