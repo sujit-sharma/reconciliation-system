@@ -79,5 +79,4 @@ public class ApacheCsvParser implements Parser {
     printer.println();
     printer.printRecords();
   }
-
 }

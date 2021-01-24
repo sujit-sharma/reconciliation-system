@@ -32,15 +32,7 @@ public class ReconciliationProcessor {
   }
 
   public void reconcile(List<Transaction> sourceList, List<Transaction> targetList) {
-    ReconciliationDAO matchingDao = createReconciliationDao("/MatchingTransactions.csv");
-    matchingDao.saveRow("transaction id,amount,currency code,value date");
-
-    ReconciliationDAO mismatchingDao = createReconciliationDao("/MismatchingTransactions.csv");
-    mismatchingDao.saveRow("found in file,transaction id,amount,currency code,value date");
-
-    ReconciliationDAO missingDao = createReconciliationDao("/MissingTransactions.csv");
-    missingDao.saveRow("found in file,transaction id,amount,currency code,value date");
-
+    Map<DaoType, ReconciliationDAO> daoMap = getReconciliationDao();
     for (Iterator<Transaction> sourceItr = sourceList.listIterator(); sourceItr.hasNext(); ) {
       Transaction sourceTrans = sourceItr.next();
 
@@ -48,25 +40,42 @@ public class ReconciliationProcessor {
         Transaction targetTrans = targetItr.next();
         if (sourceTrans.getTransId().equals(targetTrans.getTransId())) {
           if (sourceTrans.isMatched(targetTrans)) {
-            matchingDao.saveRow(csvLine(sourceTrans, ""));
+            daoMap.get(DaoType.MATCHING).saveRow(csvLine(sourceTrans, ""));
             sourceItr.remove();
           } else {
-            mismatchingDao.saveRow(csvLine(sourceTrans, "SOURCE"));
+            daoMap.get(DaoType.MISMATCHING).saveRow(csvLine(sourceTrans, "SOURCE"));
             sourceItr.remove();
-            mismatchingDao.saveRow(csvLine(targetTrans, "TARGET"));
+            daoMap.get(DaoType.MISMATCHING).saveRow(csvLine(targetTrans, "TARGET"));
           }
           targetItr.remove();
         }
       }
     }
-    sourceList.forEach(transaction -> missingDao.saveRow(csvLine(transaction, "SOURCE")));
-    targetList.forEach(transaction -> missingDao.saveRow(csvLine(transaction, "TARGET")));
+    sourceList.forEach(
+        transaction -> daoMap.get(DaoType.MISSING).saveRow(csvLine(transaction, "SOURCE")));
+    targetList.forEach(
+        transaction -> daoMap.get(DaoType.MISSING).saveRow(csvLine(transaction, "TARGET")));
     Logger.getGlobal().info("Result files are available in directory " + destinationDir);
   }
 
-  private ReconciliationDAOImpl createReconciliationDao(String s) {
+  private Map<DaoType, ReconciliationDAO> getReconciliationDao() {
+    Map<DaoType, ReconciliationDAO> daoMap = new LinkedHashMap<>(3);
+    ReconciliationDAO matchingDao = createReconciliationDao("MatchingTransactions.csv");
+    ReconciliationDAO mismatchingDao = createReconciliationDao("MismatchingTransactions.csv");
+    ReconciliationDAO missingDao = createReconciliationDao("MissingTransactions.csv");
+    matchingDao.saveRow("transaction id,amount,currency code,value date");
+    mismatchingDao.saveRow("found in file,transaction id,amount,currency code,value date");
+    missingDao.saveRow("found in file,transaction id,amount,currency code,value date");
+
+    daoMap.put(DaoType.MATCHING, matchingDao);
+    daoMap.put(DaoType.MISMATCHING, mismatchingDao);
+    daoMap.put(DaoType.MISSING, missingDao);
+    return daoMap;
+  }
+
+  private ReconciliationDAO createReconciliationDao(String fileName) {
     return new ReconciliationDAOImpl(
-        new FileSystemChannel(new ApacheCsvParser(), new File(destinationDir + s)));
+        new FileSystemChannel(new ApacheCsvParser(), new File(destinationDir, fileName)));
   }
 
   public void clearDestinationDirectory() throws IOException {

@@ -155,4 +155,14 @@ class ReconciliationProcessorTest {
     assertEquals(expectedMissing1, br.readLine());
     assertEquals(expectedMissing2, br.readLine());
   }
+
+  @Test
+  void givenDecimalGreaterThen1000WhenExecutedShouldReturnSameStringValWithoutComma() {
+    String actual = ReconciliationProcessor.toAmount(Double.parseDouble("4000.0000"));
+    assertEquals("4000.00", actual);
+
+    assertEquals("1000.00", ReconciliationProcessor.toAmount(Double.parseDouble("1000")));
+    assertEquals(
+        "1234226.13", ReconciliationProcessor.toAmount(Double.parseDouble("1234226.13264")));
+  }
 }
