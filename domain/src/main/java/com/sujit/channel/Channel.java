@@ -1,6 +1,6 @@
 package com.sujit.channel;
 
-import com.sujit.Transaction;
+import com.sujit.dataformat.Transaction;
 import java.util.List;
 
 public interface Channel {

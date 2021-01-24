@@ -2,6 +2,7 @@ package com.sujit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.sujit.dataformat.JsonTransaction;
 import java.util.Currency;
 import org.junit.jupiter.api.Test;
 

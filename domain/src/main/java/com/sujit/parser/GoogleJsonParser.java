@@ -1,9 +1,9 @@
-package com.sujit.dataformat;
+package com.sujit.parser;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import com.sujit.JsonTransaction;
-import com.sujit.Transaction;
+import com.sujit.dataformat.JsonTransaction;
+import com.sujit.dataformat.Transaction;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

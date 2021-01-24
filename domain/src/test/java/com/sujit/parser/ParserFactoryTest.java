@@ -1,4 +1,4 @@
-package com.sujit.dataformat;
+package com.sujit.parser;
 
 import static org.junit.jupiter.api.Assertions.*;
 

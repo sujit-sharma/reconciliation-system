@@ -1,4 +1,4 @@
-package com.sujit;
+package com.sujit.dataformat;
 
 import java.time.LocalDate;
 import java.util.Currency;

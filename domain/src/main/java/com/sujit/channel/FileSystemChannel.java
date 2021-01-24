@@ -1,7 +1,7 @@
 package com.sujit.channel;
 
-import com.sujit.Transaction;
-import com.sujit.dataformat.Parser;
+import com.sujit.dataformat.Transaction;
+import com.sujit.parser.Parser;
 import java.io.*;
 import java.util.List;
 import java.util.logging.Level;

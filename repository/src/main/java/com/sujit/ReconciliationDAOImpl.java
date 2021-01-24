@@ -1,6 +1,7 @@
 package com.sujit;
 
 import com.sujit.channel.Channel;
+import com.sujit.dataformat.Transaction;
 import java.util.List;
 
 public class ReconciliationDAOImpl implements ReconciliationDAO {

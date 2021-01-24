@@ -4,9 +4,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.sujit.channel.Channel;
 import com.sujit.channel.FileSystemChannel;
-import com.sujit.dataformat.ApacheCsvParser;
-import com.sujit.dataformat.GoogleJsonParser;
-import com.sujit.dataformat.Parser;
+import com.sujit.dataformat.Transaction;
+import com.sujit.parser.ApacheCsvParser;
+import com.sujit.parser.GoogleJsonParser;
+import com.sujit.parser.Parser;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;

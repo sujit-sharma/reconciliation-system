@@ -1,6 +1,6 @@
-package com.sujit.dataformat;
+package com.sujit.parser;
 
-import com.sujit.Transaction;
+import com.sujit.dataformat.Transaction;
 import java.io.*;
 import java.util.List;
 

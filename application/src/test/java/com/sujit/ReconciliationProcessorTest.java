@@ -2,6 +2,7 @@ package com.sujit;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.sujit.dataformat.Transaction;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.Currency;
@@ -157,10 +158,18 @@ class ReconciliationProcessorTest {
   }
 
   @Test
-  void givenDecimalGreaterThen1000WhenExecutedShouldReturnSameStringValWithoutComma() {
-    String actual = ReconciliationProcessor.toAmount(Double.parseDouble("4000.0000"));
-    assertEquals("4000.00", actual);
+  void whenExecuteClearDestinationThenShouldClearDestinationDir() {}
 
+  @Test
+  void givenDecimalWhenExecuteThenShouldReturnStringValueWithDefaultPrecision() {
+    assertEquals("20.12", ReconciliationProcessor.toAmount(Double.parseDouble("20.1197")));
+    assertEquals("120.45", ReconciliationProcessor.toAmount(Double.parseDouble("120.45")));
+    assertEquals("0.00", ReconciliationProcessor.toAmount(Double.parseDouble("0")));
+  }
+
+  @Test
+  void givenDecimalGreaterThen1000WhenExecutedShouldReturnStringWithDefaultPrecision() {
+    assertEquals("4000.00", ReconciliationProcessor.toAmount(Double.parseDouble("4000.0000")));
     assertEquals("1000.00", ReconciliationProcessor.toAmount(Double.parseDouble("1000")));
     assertEquals(
         "1234226.13", ReconciliationProcessor.toAmount(Double.parseDouble("1234226.13264")));

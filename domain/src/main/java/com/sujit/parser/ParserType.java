@@ -1,4 +1,4 @@
-package com.sujit.dataformat;
+package com.sujit.parser;
 
 import java.util.Arrays;
 import java.util.Objects;

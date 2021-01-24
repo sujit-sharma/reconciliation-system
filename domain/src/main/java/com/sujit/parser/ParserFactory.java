@@ -1,4 +1,4 @@
-package com.sujit.dataformat;
+package com.sujit.parser;
 
 public class ParserFactory {
   private ParserFactory() {}

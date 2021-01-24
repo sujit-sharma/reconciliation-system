@@ -1,5 +1,6 @@
 package com.sujit;
 
+import com.sujit.dataformat.Transaction;
 import java.util.List;
 
 public interface ReconciliationDAO {

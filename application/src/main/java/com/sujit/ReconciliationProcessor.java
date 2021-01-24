@@ -2,8 +2,12 @@ package com.sujit;
 
 import com.sujit.channel.Channel;
 import com.sujit.channel.FileSystemChannel;
-import com.sujit.dataformat.*;
+import com.sujit.dataformat.Transaction;
 import com.sujit.exception.IllegalFileFormatException;
+import com.sujit.parser.ApacheCsvParser;
+import com.sujit.parser.Parser;
+import com.sujit.parser.ParserFactory;
+import com.sujit.parser.ParserType;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;

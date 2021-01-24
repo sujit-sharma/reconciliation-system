@@ -1,4 +1,4 @@
-package com.sujit;
+package com.sujit.dataformat;
 
 import java.util.Currency;
 
