@@ -17,5 +17,4 @@ class ParserFactoryTest {
     Parser parser = ParserFactory.getParserByName(ParserType.JSON);
     assertTrue(parser instanceof GoogleJsonParser);
   }
-
 }

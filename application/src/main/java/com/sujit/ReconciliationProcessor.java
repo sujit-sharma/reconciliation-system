@@ -15,7 +15,13 @@ import java.util.*;
 import java.util.logging.Logger;
 
 public class ReconciliationProcessor {
-  private File destinationDir = new File( System.getProperty("user.home") + File.separator + "clusus" + File.separator + "reconciled-result");
+  private File destinationDir =
+      new File(
+          System.getProperty("user.home")
+              + File.separator
+              + "clusus"
+              + File.separator
+              + "reconciled-result");
 
   public void setDestinationDir(File destinationDir) {
     this.destinationDir = destinationDir;

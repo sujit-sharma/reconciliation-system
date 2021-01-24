@@ -56,7 +56,6 @@ class ApacheCsvParserTest {
     return getClass().getClassLoader().getResourceAsStream(name);
   }
 
-
   @Test
   public void givenARowAndFileWhenTransferThenShouldWriteTxnInFile() throws IOException {
     String fileName = "line_output.csv";

@@ -12,9 +12,9 @@ public class ReconciliationApp {
     String targetFile;
 
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Please Enter Source file location with its format");
+    Logger.getGlobal().info("Please Enter Source file location with its format");
     sourceFile = scanner.nextLine().trim();
-    System.out.println("Enter Target file location with its format");
+    Logger.getGlobal().info("Enter Target file location with its format");
     targetFile = scanner.nextLine().trim();
 
     new ReconciliationProcessor().arrangeDataThenApplyReconciliation(sourceFile, targetFile);
