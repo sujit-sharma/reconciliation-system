@@ -1,39 +1,28 @@
 package com.sujit;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.Currency;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
-import java.util.logging.Logger;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ReconciliationProcessorTest {
   private ReconciliationProcessor reconciliationProcessor;
-  private File destinationDir;
   final String COMMA = ",";
+  private File destinationDir;
 
   @BeforeEach
-  void init() {
-    reconciliationProcessor = new ReconciliationProcessor();
-  }
-
-  @AfterEach
-  void destroy() throws IOException {
-    if (destinationDir != null) {
-      if (destinationDir.exists() && destinationDir.length() > 0) {
-        for (File file : Objects.requireNonNull(destinationDir.listFiles())) {
-          if (destinationDir.length() > 0) Files.delete(file.toPath());
-        }
-      }
-    }
+  void init() throws IOException {
+    String[] parts =
+        getClass().getClassLoader().getResource("file1.csv").getFile().split("/file1.csv");
+    String pathname = parts[0] + File.separator + "output";
+    reconciliationProcessor = new ReconciliationProcessor(pathname);
+    destinationDir = reconciliationProcessor.getDestinationDir();
+    reconciliationProcessor.clearDestinationDirectory();
   }
 
   @Test
@@ -62,29 +51,13 @@ class ReconciliationProcessorTest {
 
       reconciliationProcessor.arrangeDataThenApplyReconciliation(source, target);
     } catch (Exception e) {
-      fail("Should run without any exception");
+      fail("Should run without any exception", e);
     }
   }
 
   @Test
   void givenSourceAndTargetTxnListWhenReconcileThenShouldDetectMissingTxnAndSeparateThem()
       throws IOException {
-    destinationDir =
-        new File(
-            "."
-                + File.separator
-                + "src"
-                + File.separator
-                + "test"
-                + File.separator
-                + "resources"
-                + File.separator
-                + "output");
-    boolean isCreated = destinationDir.mkdir();
-    if (!isCreated) {
-      Logger.getGlobal().info("Directory already created");
-    }
-    reconciliationProcessor.setDestinationDir(destinationDir);
     BufferedReader br;
 
     Transaction txn1 =
@@ -147,7 +120,7 @@ class ReconciliationProcessorTest {
     String expectedMatching =
         txn1.getTransId()
             + COMMA
-            + txn1.getAmount()
+            + ReconciliationProcessor.toAmount(txn1.getAmount())
             + COMMA
             + txn1.getCurrencyCode()
             + COMMA
@@ -161,7 +134,7 @@ class ReconciliationProcessorTest {
             + COMMA
             + txn3.getTransId()
             + COMMA
-            + txn3.getAmount()
+            + ReconciliationProcessor.toAmount(txn3.getAmount())
             + COMMA
             + txn3.getCurrencyCode()
             + COMMA
@@ -172,7 +145,7 @@ class ReconciliationProcessorTest {
             + COMMA
             + txn5.getTransId()
             + COMMA
-            + txn5.getAmount()
+            + ReconciliationProcessor.toAmount(txn5.getAmount())
             + COMMA
             + txn5.getCurrencyCode()
             + COMMA

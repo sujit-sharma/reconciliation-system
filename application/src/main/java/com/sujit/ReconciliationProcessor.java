@@ -7,53 +7,38 @@ import com.sujit.exception.IllegalFileFormatException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.*;
 import java.util.logging.Logger;
 
 public class ReconciliationProcessor {
-  private File destinationDir =
-      new File(
-          System.getProperty("user.home")
-              + File.separator
-              + "clusus"
-              + File.separator
-              + "reconciled-result");
+  public static final String COMMA = ",";
+  private final File destinationDir;
 
-  public void setDestinationDir(File destinationDir) {
-    this.destinationDir = destinationDir;
+  public ReconciliationProcessor(String yourDir) {
+    this.destinationDir = new File(yourDir + File.separator + "reconciled-result");
+  }
+
+  public File getDestinationDir() {
+    return destinationDir;
   }
 
   public void arrangeDataThenApplyReconciliation(String source, String target) throws IOException {
-    if (destinationDir.exists() && destinationDir.length() > 0) {
-      for (File file : Objects.requireNonNull(destinationDir.listFiles())) {
-        if (destinationDir.length() > 0) Files.delete(file.toPath());
-      }
-    }
-    if (destinationDir.mkdir()) throw new IllegalArgumentException("Invalid directory");
-
+    clearDestinationDirectory();
     List<Transaction> sourceList = accessData(source);
     List<Transaction> targetList = accessData(target);
     reconcile(sourceList, targetList);
   }
 
   public void reconcile(List<Transaction> sourceList, List<Transaction> targetList) {
-    final String COMMA = ",";
-    // arranging system to write in different files
-    ReconciliationDAO matchingDao =
-        new ReconciliationDAOImpl(
-            new FileSystemChannel(
-                new ApacheCsvParser(), new File(destinationDir + "/MatchingTransactions.csv")));
+    ReconciliationDAO matchingDao = createReconciliationDao("/MatchingTransactions.csv");
     matchingDao.saveRow("transaction id,amount,currency code,value date");
-    ReconciliationDAO mismatchingDao =
-        new ReconciliationDAOImpl(
-            new FileSystemChannel(
-                new ApacheCsvParser(), new File(destinationDir + "/MismatchingTransactions.csv")));
+
+    ReconciliationDAO mismatchingDao = createReconciliationDao("/MismatchingTransactions.csv");
     mismatchingDao.saveRow("found in file,transaction id,amount,currency code,value date");
-    ReconciliationDAO missingDao =
-        new ReconciliationDAOImpl(
-            new FileSystemChannel(
-                new ApacheCsvParser(), new File(destinationDir + "/MissingTransactions.csv")));
+
+    ReconciliationDAO missingDao = createReconciliationDao("/MissingTransactions.csv");
     missingDao.saveRow("found in file,transaction id,amount,currency code,value date");
 
     for (Iterator<Transaction> sourceItr = sourceList.listIterator(); sourceItr.hasNext(); ) {
@@ -62,77 +47,36 @@ public class ReconciliationProcessor {
       for (Iterator<Transaction> targetItr = targetList.listIterator(); targetItr.hasNext(); ) {
         Transaction targetTrans = targetItr.next();
         if (sourceTrans.getTransId().equals(targetTrans.getTransId())) {
-          if (sourceTrans.getAmount().equals(targetTrans.getAmount())
-              && sourceTrans.getCurrencyCode().equals(targetTrans.getCurrencyCode())
-              && sourceTrans.getDate().equals(targetTrans.getDate())) {
-            String row =
-                sourceTrans.getTransId()
-                    + COMMA
-                    + sourceTrans.getAmount()
-                    + COMMA
-                    + sourceTrans.getCurrencyCode()
-                    + COMMA
-                    + sourceTrans.getDate();
-            matchingDao.saveRow(row);
+          if (sourceTrans.isMatched(targetTrans)) {
+            matchingDao.saveRow(csvLine(sourceTrans, ""));
             sourceItr.remove();
           } else {
-            String row1 =
-                "SOURCE"
-                    + COMMA
-                    + sourceTrans.getTransId()
-                    + COMMA
-                    + NumberFormat.getCurrencyInstance().format(sourceTrans.getAmount())
-                    + COMMA
-                    + sourceTrans.getCurrencyCode()
-                    + COMMA
-                    + sourceTrans.getDate();
-            mismatchingDao.saveRow(row1);
+            mismatchingDao.saveRow(csvLine(sourceTrans, "SOURCE"));
             sourceItr.remove();
-            String row2 =
-                "TARGET"
-                    + COMMA
-                    + targetTrans.getTransId()
-                    + COMMA
-                    + NumberFormat.getCurrencyInstance().format(targetTrans.getAmount())
-                    + COMMA
-                    + targetTrans.getCurrencyCode()
-                    + COMMA
-                    + targetTrans.getDate();
-            mismatchingDao.saveRow(row2);
+            mismatchingDao.saveRow(csvLine(targetTrans, "TARGET"));
           }
           targetItr.remove();
         }
       }
     }
-    sourceList.forEach(
-        transaction -> {
-          String row1 =
-              "SOURCE"
-                  + COMMA
-                  + transaction.getTransId()
-                  + COMMA
-                  + transaction.getAmount()
-                  + COMMA
-                  + transaction.getCurrencyCode()
-                  + COMMA
-                  + transaction.getDate();
-          missingDao.saveRow(row1);
-        });
-    targetList.forEach(
-        transaction -> {
-          String row1 =
-              "TARGET"
-                  + COMMA
-                  + transaction.getTransId()
-                  + COMMA
-                  + transaction.getAmount()
-                  + COMMA
-                  + transaction.getCurrencyCode()
-                  + COMMA
-                  + transaction.getDate();
-          missingDao.saveRow(row1);
-        });
+    sourceList.forEach(transaction -> missingDao.saveRow(csvLine(transaction, "SOURCE")));
+    targetList.forEach(transaction -> missingDao.saveRow(csvLine(transaction, "TARGET")));
     Logger.getGlobal().info("Result files are available in directory " + destinationDir);
+  }
+
+  private ReconciliationDAOImpl createReconciliationDao(String s) {
+    return new ReconciliationDAOImpl(
+        new FileSystemChannel(new ApacheCsvParser(), new File(destinationDir + s)));
+  }
+
+  public void clearDestinationDirectory() throws IOException {
+    if (destinationDir.exists()) {
+      for (File file : Objects.requireNonNull(destinationDir.listFiles())) {
+        Files.delete(file.toPath());
+      }
+      Files.delete(destinationDir.toPath());
+    }
+    if (!destinationDir.mkdirs()) throw new IllegalArgumentException("Invalid directory");
   }
 
   private List<Transaction> accessData(String filePath) {
@@ -148,5 +92,25 @@ public class ReconciliationProcessor {
     Channel sourceChannel = new FileSystemChannel(parser, new File(filePath));
     ReconciliationDAO sourceDao = new ReconciliationDAOImpl(sourceChannel);
     return sourceDao.findAll();
+  }
+
+  private String csvLine(Transaction transaction, String source) {
+    String txnRow =
+        transaction.getTransId()
+            + COMMA
+            + toAmount(transaction.getAmount())
+            + COMMA
+            + transaction.getCurrencyCode()
+            + COMMA
+            + transaction.getDate();
+    return source != null && !source.trim().isEmpty() ? (source + COMMA + txnRow) : txnRow;
+  }
+
+  public static String toAmount(Double amount) {
+    DecimalFormat format = (DecimalFormat) NumberFormat.getCurrencyInstance();
+    String pattern = format.toPattern();
+    String newPattern = pattern.replace("\u00A4", "").replace(",", "").trim();
+    DecimalFormat decimalFormat = new DecimalFormat(newPattern);
+    return decimalFormat.format(amount);
   }
 }

@@ -4,6 +4,7 @@ import com.sujit.Transaction;
 import com.sujit.dataformat.Parser;
 import java.io.*;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class FileSystemChannel implements Channel {
@@ -20,11 +21,13 @@ public class FileSystemChannel implements Channel {
     List<Transaction> transactions = null;
     try (InputStreamReader reader = new FileReader(fileName)) {
       transactions = parser.parse(reader);
-
     } catch (IOException ioException) {
-      Logger.getGlobal().severe("An Exception Occurs" + ioException.getMessage());
+      Logger.getGlobal()
+          .log(
+              Level.SEVERE,
+              "An Exception Occurs on reading" + ioException.getMessage(),
+              ioException);
     }
-
     return transactions;
   }
 
@@ -33,7 +36,11 @@ public class FileSystemChannel implements Channel {
     try (FileWriter writer = new FileWriter(fileName, true)) {
       parser.transfer(transaction, writer);
     } catch (IOException ioException) {
-      Logger.getGlobal().severe("An Exception Occurs" + ioException.getMessage());
+      Logger.getGlobal()
+          .log(
+              Level.SEVERE,
+              "An Exception Occurs on writing" + ioException.getMessage(),
+              ioException);
     }
   }
 }

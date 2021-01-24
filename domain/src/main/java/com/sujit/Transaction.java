@@ -115,4 +115,10 @@ public class Transaction {
         + transType
         + '}';
   }
+
+  public boolean isMatched(Transaction targetTrans) {
+    return this.getAmount().equals(targetTrans.getAmount())
+        && this.getCurrencyCode().equals(targetTrans.getCurrencyCode())
+        && this.getDate().equals(targetTrans.getDate());
+  }
 }

@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+/**
+ * IT IS WORKING ON MY MACHINE - GET RID OF THIS FILE NIO 2 FAT JAR - Bundle jar with all
+ * dependencies plus mainfest with main class (single jar as an application) Jacoco - Test Coverage
+ */
 public class ReconciliationApp {
 
   public static void main(String[] args) throws IOException {
@@ -17,9 +21,13 @@ public class ReconciliationApp {
     Logger.getGlobal().info("Enter Target file location with its format");
     targetFile = scanner.nextLine().trim();
 
-    new ReconciliationProcessor().arrangeDataThenApplyReconciliation(sourceFile, targetFile);
+    String homeDir = ".";
+
+    new ReconciliationProcessor(homeDir).arrangeDataThenApplyReconciliation(sourceFile, targetFile);
     Logger.getGlobal().info("Reconciliation Finished");
     Logger.getGlobal()
-        .info("Result files are available in directory /home/com.sujit/reconciliation-result");
+        .info(
+            String.format(
+                "Result files are available in directory %s/reconciliation-result", homeDir));
   }
 }
