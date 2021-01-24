@@ -100,6 +100,6 @@ class ReconciliationDAOImplTest {
 
     assertEquals(row + "\n", new String(actual));
 
-    file.delete();
+    assertTrue(file.delete());
   }
 }

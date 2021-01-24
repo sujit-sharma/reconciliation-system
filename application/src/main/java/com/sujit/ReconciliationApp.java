@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 /**
  * IT IS WORKING ON MY MACHINE - GET RID OF THIS FILE NIO 2 FAT JAR - Bundle jar with all
- * dependencies plus mainfest with main class (single jar as an application) Jacoco - Test Coverage
+ * dependencies plus mainFest with main class (single jar as an application) Jacoco - Test Coverage
  */
 public class ReconciliationApp {
 

@@ -72,7 +72,7 @@ class ReconciliationProcessorTest {
     Transaction txn2 =
         new Transaction(
             "TR-47884222202",
-            "atm withdrwal",
+            "atm withdrawal",
             Double.parseDouble("20"),
             Currency.getInstance("JOD"),
             "",
@@ -90,7 +90,7 @@ class ReconciliationProcessorTest {
     Transaction txn4 =
         new Transaction(
             "TR-47884222202",
-            "atm withdrwal",
+            "atm withdrawal",
             Double.parseDouble("20"),
             Currency.getInstance("JOD"),
             "",

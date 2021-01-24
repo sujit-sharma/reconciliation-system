@@ -44,7 +44,7 @@ class ApacheCsvParserTest {
     Transaction lastTxn = result.get(result.size() - 1);
 
     assertEquals("TR-47884222206", lastTxn.getTransId());
-    assertEquals("atm withdrwal", lastTxn.getDescription());
+    assertEquals("atm withdrawal", lastTxn.getDescription());
     assertEquals(Double.valueOf("500"), lastTxn.getAmount());
     assertEquals(Currency.getInstance("USD"), lastTxn.getCurrencyCode());
     assertEquals("", lastTxn.getPurpose());
@@ -105,7 +105,7 @@ class ApacheCsvParserTest {
     Transaction txn2 =
         new Transaction(
             "TR-47884222202",
-            "atm withdrwal",
+            "atm withdrawal",
             Double.parseDouble("20"),
             Currency.getInstance("JOD"),
             "",
@@ -176,7 +176,7 @@ class ApacheCsvParserTest {
     Transaction txn2 =
         new Transaction(
             "TR-47884222202",
-            "atm withdrwal",
+            "atm withdrawal",
             Double.parseDouble("20"),
             Currency.getInstance("JOD"),
             "",

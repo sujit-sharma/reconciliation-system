@@ -51,11 +51,11 @@ In this CSV file, the first line is the header names, and the financial transact
 ```csv
 trans unique id,trans description,amount,currecny,purpose,value date,trans type
 TR-47884222201,online transfer,140,USD,donation,2020-01-20,D
-TR-47884222202,atm withdrwal,20.0000,JOD,,2020-01-22,D
+TR-47884222202,atm withdrawal,20.0000,JOD,,2020-01-22,D
 TR-47884222203,counter withdrawal,5000,JOD,,2020-01-25,D
 TR-47884222204,salary,1200.000,JOD,donation,2020-01-31,C
-TR-47884222205,atm withdrwal,60.0,JOD,,2020-02-02,D
-TR-47884222206,atm withdrwal,500.0,USD,,2020-02-10,D
+TR-47884222205,atm withdrawal,60.0,JOD,,2020-02-02,D
+TR-47884222206,atm withdrawal,500.0,USD,,2020-02-10,D
 ```
 #### JSON file format
 The json file consists of an array of transactions with the following properties:

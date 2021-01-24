@@ -65,12 +65,7 @@ class FileSystemChannelTest {
                 + File.separator
                 + "input.csv");
     channel = new FileSystemChannel(parser, file);
-    Exception exception =
-        assertThrows(
-            Exception.class,
-            () -> {
-              channel.read();
-            });
+    Exception exception = assertThrows(Exception.class, () -> channel.read());
     Logger.getGlobal().info(exception.getMessage());
   }
 
@@ -109,12 +104,7 @@ class FileSystemChannelTest {
                 + File.separator
                 + "input.json");
     channel = new FileSystemChannel(parser, file);
-    Exception exception =
-        assertThrows(
-            Exception.class,
-            () -> {
-              List<Transaction> result = channel.read();
-            });
+    Exception exception = assertThrows(Exception.class, () -> channel.read());
     Logger.getGlobal().info(exception.getMessage());
   }
 
