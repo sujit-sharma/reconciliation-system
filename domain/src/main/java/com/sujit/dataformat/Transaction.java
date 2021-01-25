@@ -92,30 +92,6 @@ public class Transaction {
     this.transType = transType;
   }
 
-  @Override
-  public String toString() {
-    return "Transaction{"
-        + "transId='"
-        + transId
-        + '\''
-        + ", description='"
-        + description
-        + '\''
-        + ", amount="
-        + amount
-        + ", currencyCode='"
-        + currencyCode
-        + '\''
-        + ", purpose='"
-        + purpose
-        + '\''
-        + ", date="
-        + date
-        + ", transType="
-        + transType
-        + '}';
-  }
-
   public boolean isMatched(Transaction targetTrans) {
     return this.getAmount().equals(targetTrans.getAmount())
         && this.getCurrencyCode().equals(targetTrans.getCurrencyCode())

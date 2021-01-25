@@ -4,10 +4,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.sujit.dataformat.Transaction;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.time.LocalDate;
 import java.util.Currency;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -158,7 +161,24 @@ class ReconciliationProcessorTest {
   }
 
   @Test
-  void whenExecuteClearDestinationThenShouldClearDestinationDir() {}
+  void whenExecuteShouldReturnMapOfDaoTypeAndReconciliationDaoWithSize3()
+      throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+
+    Method createDao = reconciliationProcessor.getClass().getDeclaredMethod("getReconciliationDao");
+    createDao.setAccessible(true);
+    Object object = createDao.invoke(reconciliationProcessor);
+    Map<DaoType, ReconciliationDAO> DaoMap = (Map) object;
+    assertEquals(3, DaoMap.size());
+  }
+
+  @Test
+  void whenExecuteClearDestinationThenShouldDeleteAllContentsOfDir() throws IOException {
+    String destinationDir = "." + File.separator + "test" + File.separator + "resources";
+    ReconciliationProcessor recProcessor = new ReconciliationProcessor(destinationDir);
+    recProcessor.clearDestinationDirectory();
+    assertEquals(0, recProcessor.getDestinationDir().list().length);
+    assertTrue(recProcessor.getDestinationDir().exists());
+  }
 
   @Test
   void givenDecimalWhenExecuteThenShouldReturnStringValueWithDefaultPrecision() {
