@@ -25,7 +25,8 @@ public class ReconciliationApp {
     Logger.getGlobal().info("Reconciliation Finished");
     Logger.getGlobal()
         .info(
-            String.format(
-                "Result files are available in directory %s/reconciliation-result", homeDir));
+            () ->
+                String.format(
+                    "Result files are available in directory %s/reconciliation-result", homeDir));
   }
 }

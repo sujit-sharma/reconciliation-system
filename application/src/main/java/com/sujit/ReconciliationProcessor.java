@@ -59,7 +59,8 @@ public class ReconciliationProcessor {
         transaction -> daoMap.get(DaoType.MISSING).saveRow(csvLine(transaction, "SOURCE")));
     targetList.forEach(
         transaction -> daoMap.get(DaoType.MISSING).saveRow(csvLine(transaction, "TARGET")));
-    Logger.getGlobal().info("Result files are available in directory " + destinationDir);
+    Logger.getGlobal()
+        .info(() -> String.format("Result files are available in directory %s ", destinationDir));
   }
 
   private Map<DaoType, ReconciliationDAO> getReconciliationDao() {

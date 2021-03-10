@@ -25,8 +25,8 @@ public class FileSystemChannel implements Channel {
       Logger.getGlobal()
           .log(
               Level.SEVERE,
-              "An Exception Occurs on reading" + ioException.getMessage(),
-              ioException);
+              ioException,
+              () -> String.format("An Exception Occurs on reading %s", ioException.getMessage()));
     }
     return transactions;
   }
@@ -39,8 +39,8 @@ public class FileSystemChannel implements Channel {
       Logger.getGlobal()
           .log(
               Level.SEVERE,
-              "An Exception Occurs on writing %s" + ioException.getMessage(),
-              ioException);
+              ioException,
+              () -> String.format("An Exception Occurs on writing %s", ioException.getMessage()));
     }
   }
 }

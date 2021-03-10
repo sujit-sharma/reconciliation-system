@@ -56,8 +56,6 @@ class ReconciliationProcessorTest {
     }
   }
 
-
-
   @Test
   void givenSourceAndTargetTxnListWhenReconcileThenShouldDetectMissingTxnAndSeparateThem()
       throws IOException {
@@ -130,53 +128,54 @@ class ReconciliationProcessorTest {
             + transaction.getDate();
     return source != null && !source.trim().isEmpty() ? (source + COMMA + txnRow) : txnRow;
   }
+
   private List<Transaction> createTransactions() {
     List<Transaction> transactionList = new LinkedList<>();
     transactionList.add(
-            new Transaction(
-                    "TR-47884222201",
-                    "online transfer",
-                    Double.parseDouble("140"),
-                    Currency.getInstance("USD"),
-                    "donation",
-                    LocalDate.parse("2020-01-20"),
-                    'D'));
+        new Transaction(
+            "TR-47884222201",
+            "online transfer",
+            Double.parseDouble("140"),
+            Currency.getInstance("USD"),
+            "donation",
+            LocalDate.parse("2020-01-20"),
+            'D'));
     transactionList.add(
-            new Transaction(
-                    "TR-47884222202",
-                    "atm withdrawal",
-                    Double.parseDouble("20"),
-                    Currency.getInstance("JOD"),
-                    "",
-                    LocalDate.parse("2020-01-22"),
-                    'D'));
+        new Transaction(
+            "TR-47884222202",
+            "atm withdrawal",
+            Double.parseDouble("20"),
+            Currency.getInstance("JOD"),
+            "",
+            LocalDate.parse("2020-01-22"),
+            'D'));
     transactionList.add(
-            new Transaction(
-                    "TR-47884222203",
-                    "counter withdrawal",
-                    Double.parseDouble("5000"),
-                    Currency.getInstance("JOD"),
-                    "",
-                    LocalDate.parse("2020-01-25"),
-                    'C'));
+        new Transaction(
+            "TR-47884222203",
+            "counter withdrawal",
+            Double.parseDouble("5000"),
+            Currency.getInstance("JOD"),
+            "",
+            LocalDate.parse("2020-01-25"),
+            'C'));
     transactionList.add(
-            new Transaction(
-                    "TR-47884222202",
-                    "atm withdrawal",
-                    Double.parseDouble("20"),
-                    Currency.getInstance("JOD"),
-                    "",
-                    LocalDate.parse("2020-03-15"),
-                    'D'));
+        new Transaction(
+            "TR-47884222202",
+            "atm withdrawal",
+            Double.parseDouble("20"),
+            Currency.getInstance("JOD"),
+            "",
+            LocalDate.parse("2020-03-15"),
+            'D'));
     transactionList.add(
-            new Transaction(
-                    "TR-47884222204",
-                    "counter withdrawal",
-                    Double.parseDouble("5000"),
-                    Currency.getInstance("JOD"),
-                    "",
-                    LocalDate.parse("2020-01-25"),
-                    'C'));
+        new Transaction(
+            "TR-47884222204",
+            "counter withdrawal",
+            Double.parseDouble("5000"),
+            Currency.getInstance("JOD"),
+            "",
+            LocalDate.parse("2020-01-25"),
+            'C'));
     return transactionList;
   }
 }
