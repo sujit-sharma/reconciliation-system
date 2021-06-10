@@ -26,7 +26,7 @@ public class FileSystemChannel implements Channel {
           .log(
               Level.SEVERE,
               ioException,
-              () -> String.format("An Exception Occurs on reading %s", ioException.getMessage()));
+              () -> String.format("An Exception Occurs on reading  something bad %s", ioException.getMessage()));
     }
     return transactions;
   }
